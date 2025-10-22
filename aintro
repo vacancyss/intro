@@ -13,62 +13,60 @@ image.Data = game:HttpGet(url, true)
 local baseSize = 300
 local aspectRatio = 1
 image.Size = Vector2.new(baseSize, baseSize * aspectRatio)
-image.Position = Vector2.new(viewport.X/2 - image.Size.X/2, viewport.Y/2 - image.Size.Y/2)
+image.Position = Vector2.new(viewport.X / 2 - image.Size.X / 2, viewport.Y / 2 - image.Size.Y / 2)
 image.Visible = true
 image.Transparency = 0
 
 local song = game:HttpGet("https://github.com/vacancyss/song47653/raw/refs/heads/main/%5Bfree%5D%20hoodtrap%20type%20beat%20-%20hysteric%20%20xaviersobased%20type%20beat.mp3")
-if isfile('audio52452.mp3') then
-    delfile('audio52452.mp3')
-end
-writefile('audio52452.mp3', song)
+if isfile("audio52452.mp3") then delfile("audio52452.mp3") end
+writefile("audio52452.mp3", song)
+
 local audio = Instance.new("Sound")
 audio.Parent = workspace
-audio.SoundId = getcustomasset('audio52452.mp3')
+audio.SoundId = getcustomasset("audio52452.mp3")
 audio.Volume = 0
 audio:Play()
 
-local fadeInDone = false
 for i = 0, 24, 0.5 do
-    blur.Size = i
-    audio.Volume = i/24
-    RunService.RenderStepped:Wait()
+	blur.Size = i
+	audio.Volume = i / 24
+	RunService.RenderStepped:Wait()
 end
-fadeInDone = true
 
 for i = 0, 1, 0.01 do
-    local loudness = audio.PlaybackLoudness / 150
-    local size = baseSize + loudness * 50
-    image.Size = Vector2.new(size, size * aspectRatio)
-    image.Position = Vector2.new(viewport.X/2 - image.Size.X/2, viewport.Y/2 - image.Size.Y/2)
-    image.Transparency = i
-    RunService.RenderStepped:Wait()
+	local loudness = audio.PlaybackLoudness / 150
+	local size = baseSize + loudness * 50
+	image.Size = Vector2.new(size, size * aspectRatio)
+	image.Position = Vector2.new(viewport.X / 2 - image.Size.X / 2, viewport.Y / 2 - image.Size.Y / 2)
+	image.Transparency = i
+	RunService.RenderStepped:Wait()
 end
 
 local stopRequested = false
 UserInputService.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        stopRequested = true
-    end
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		stopRequested = true
+	end
 end)
 
 while not stopRequested do
-    local loudness = audio.PlaybackLoudness / 150
-    local size = baseSize + loudness * 50
-    image.Size = Vector2.new(size, size * aspectRatio)
-    image.Position = Vector2.new(viewport.X/2 - image.Size.X/2, viewport.Y/2 - image.Size.Y/2)
-    RunService.RenderStepped:Wait()
+	local loudness = audio.PlaybackLoudness / 150
+	local size = baseSize + loudness * 50
+	image.Size = Vector2.new(size, size * aspectRatio)
+	image.Position = Vector2.new(viewport.X / 2 - image.Size.X / 2, viewport.Y / 2 - image.Size.Y / 2)
+	RunService.RenderStepped:Wait()
 end
 
 for i = image.Transparency, 0, -0.01 do
-    image.Transparency = i
-    audio.Volume = i
-    RunService.RenderStepped:Wait()
+	image.Transparency = i
+	audio.Volume = i
+	RunService.RenderStepped:Wait()
 end
 
 for i = blur.Size, 0, -0.5 do
-    blur.Size = i
-    RunService.RenderStepped:Wait()
+	blur.Size = i
+	RunService.RenderStepped:Wait()
 end
 
 audio:Stop()
+_G.IntroLoaded = true
