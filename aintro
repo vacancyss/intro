@@ -17,7 +17,7 @@ image.Position = Vector2.new(viewport.X / 2 - image.Size.X / 2, viewport.Y / 2 -
 image.Visible = true
 image.Transparency = 0
 
-local song = game:HttpGet("https://github.com/vacancyss/song47653/raw/refs/heads/main/%5BFREE%5D%20eviljerk%20x%20hoodtrap%20type%20beat.mp3")
+local song = game:HttpGet("https://github.com/vacancyss/song47653/raw/refs/heads/main/Digbar-%20BIG%20DICK%20RANDY%20(Bass%20Boosted).mp3")
 if isfile("audio52452.mp3") then delfile("audio52452.mp3") end
 writefile("audio52452.mp3", song)
 
